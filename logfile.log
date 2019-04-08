@@ -1,0 +1,32 @@
+{"message":"connection 3 to devconnector-shard-00-00-etg4y.mongodb.net:27017 closed","stack":"MongoNetworkError: connection 3 to devconnector-shard-00-00-etg4y.mongodb.net:27017 closed\n    at TLSSocket.<anonymous> (E:\\Docs\\Projects\\DevConnector\\node_modules\\mongodb-core\\lib\\connection\\connection.js:276:9)\n    at Object.onceWrapper (events.js:277:13)\n    at TLSSocket.emit (events.js:194:15)\n    at _handle.close (net.js:600:12)\n    at TCP.done (_tls_wrap.js:388:7)","name":"MongoNetworkError","errorLabels":["TransientTransactionError"],"level":"error","timestamp":"2019-04-08T16:23:35.524Z"}
+{"message":"connection 4 to devconnector-shard-00-00-etg4y.mongodb.net:27017 closed","stack":"MongoNetworkError: connection 4 to devconnector-shard-00-00-etg4y.mongodb.net:27017 closed\n    at TLSSocket.<anonymous> (E:\\Docs\\Projects\\DevConnector\\node_modules\\mongodb-core\\lib\\connection\\connection.js:276:9)\n    at Object.onceWrapper (events.js:277:13)\n    at TLSSocket.emit (events.js:194:15)\n    at _handle.close (net.js:600:12)\n    at TCP.done (_tls_wrap.js:388:7)","name":"MongoNetworkError","errorLabels":["TransientTransactionError"],"level":"error","timestamp":"2019-04-08T16:34:48.381Z"}
+{"message":"connection 4 to devconnector-shard-00-02-etg4y.mongodb.net:27017 closed","stack":"MongoNetworkError: connection 4 to devconnector-shard-00-02-etg4y.mongodb.net:27017 closed\n    at TLSSocket.<anonymous> (E:\\Docs\\Projects\\DevConnector\\node_modules\\mongodb-core\\lib\\connection\\connection.js:276:9)\n    at Object.onceWrapper (events.js:277:13)\n    at TLSSocket.emit (events.js:194:15)\n    at _handle.close (net.js:600:12)\n    at TCP.done (_tls_wrap.js:388:7)","name":"MongoNetworkError","errorLabels":["TransientTransactionError"],"level":"error","timestamp":"2019-04-08T16:34:55.917Z"}
+{"message":"connection 4 to cluster0-shard-00-02-etg4y.azure.mongodb.net:27017 closed","stack":"MongoNetworkError: connection 4 to cluster0-shard-00-02-etg4y.azure.mongodb.net:27017 closed\n    at TLSSocket.<anonymous> (E:\\Docs\\Projects\\DevConnector\\node_modules\\mongodb-core\\lib\\connection\\connection.js:276:9)\n    at Object.onceWrapper (events.js:277:13)\n    at TLSSocket.emit (events.js:194:15)\n    at _handle.close (net.js:600:12)\n    at TCP.done (_tls_wrap.js:388:7)","name":"MongoNetworkError","errorLabels":["TransientTransactionError"],"level":"error","timestamp":"2019-04-08T16:45:21.133Z"}
+{"message":"connection 5 to cluster0-shard-00-01-etg4y.azure.mongodb.net:27017 closed","stack":"MongoNetworkError: connection 5 to cluster0-shard-00-01-etg4y.azure.mongodb.net:27017 closed\n    at TLSSocket.<anonymous> (E:\\Docs\\Projects\\DevConnector\\node_modules\\mongodb-core\\lib\\connection\\connection.js:276:9)\n    at Object.onceWrapper (events.js:277:13)\n    at TLSSocket.emit (events.js:194:15)\n    at _handle.close (net.js:600:12)\n    at TCP.done (_tls_wrap.js:388:7)","name":"MongoNetworkError","errorLabels":["TransientTransactionError"],"level":"error","timestamp":"2019-04-08T17:35:16.755Z"}
+{"level":"info","message":"Connected to mongodb://localhost/devconnector ....","timestamp":"2019-04-08T17:36:26.416Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:36:30.407Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:36:40.114Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:36:55.764Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:37:03.274Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:38:28.528Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:39:16.718Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:40:31.135Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:40:59.267Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:41:07.871Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:41:44.334Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:42:45.726Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:43:11.645Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:43:26.562Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:43:45.762Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:44:34.657Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:44:36.576Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:45:43.152Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:46:40.508Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:47:40.923Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:48:28.089Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:48:43.535Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:51:27.936Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:52:40.319Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T17:52:54.360Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T18:02:53.644Z"}
+{"level":"info","message":"Connected to mongodb://localhost/dev-connector ....","timestamp":"2019-04-08T18:07:54.303Z"}

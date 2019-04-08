@@ -1,3 +1,4 @@
 {
-  "db": "mongodb://localhost/dev-connector"
+  "db": "mongodb://localhost/dev-connector",
+  "jwtPrivateKey": ""
 }

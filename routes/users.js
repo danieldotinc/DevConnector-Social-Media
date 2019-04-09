@@ -1,5 +1,5 @@
 const express = require("express");
-const { User } = require("../models/user");
+const { User, validate } = require("../models/user");
 const gravatar = require("gravatar");
 const bcrypt = require("bcrypt");
 
@@ -13,11 +13,16 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const check = await User.findOne({ email: req.body.email });
   if (check) return res.status(400).send("This email is already taken!");
+
   const avatar = gravatar.url(req.body.email, {
     s: "200", //size
     r: "pg", //Rating
     d: "mm" //Default
   });
+
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(req.body.password, salt);
 

@@ -16,6 +16,8 @@
     "express": "^4.16.4",
     "express-async-errors": "^3.1.1",
     "gravatar": "^1.8.0",
+    "joi": "^14.3.1",
+    "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.2.3",
     "mongoose": "^5.4.23",

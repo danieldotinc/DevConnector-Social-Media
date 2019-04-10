@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 const profileSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "users"
+    ref: "User"
   },
   handle: {
     type: String,
@@ -100,7 +100,9 @@ const validateProfile = profile => {
     website: Joi.string(),
     location: Joi.string(),
     status: Joi.string().required(),
-    skills: Joi.array().items(Joi.string().required()),
+    skills: Joi.array()
+      .items(Joi.string().required())
+      .required(),
     bio: Joi.string(),
     githubUsername: Joi.string(),
     experience: Joi.array().items(
@@ -109,7 +111,7 @@ const validateProfile = profile => {
         company: Joi.string().required(),
         location: Joi.string(),
         from: Joi.date().required(),
-        to: Joi.date().required(),
+        to: Joi.date(),
         current: Joi.boolean(),
         description: Joi.string()
       })
@@ -120,7 +122,7 @@ const validateProfile = profile => {
         degree: Joi.string().required(),
         fieldOfStudy: Joi.string().required(),
         from: Joi.date().required(),
-        to: Joi.date().required(),
+        to: Joi.date(),
         current: Joi.boolean(),
         description: Joi.string()
       }
@@ -137,5 +139,33 @@ const validateProfile = profile => {
   return Joi.validate(profile, schema);
 };
 
+const validateExperience = experience => {
+  const schema = {
+    title: Joi.string().required(),
+    company: Joi.string().required(),
+    location: Joi.string(),
+    from: Joi.date().required(),
+    to: Joi.date(),
+    current: Joi.boolean(),
+    description: Joi.string()
+  };
+  return Joi.validate(experience, schema);
+};
+
+const validateEducation = experience => {
+  const schema = {
+    school: Joi.string().required(),
+    degree: Joi.string().required(),
+    fieldOfStudy: Joi.string().required(),
+    from: Joi.date().required(),
+    to: Joi.date(),
+    current: Joi.boolean(),
+    description: Joi.string()
+  };
+  return Joi.validate(experience, schema);
+};
+
 module.exports.Profile = Profile;
 module.exports.validate = validateProfile;
+module.exports.validateExperience = validateExperience;
+module.exports.validateEducation = validateEducation;

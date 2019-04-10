@@ -36,7 +36,7 @@ const validateUser = user => {
       .min(3)
       .max(50)
       .required(),
-    username: Joi.string()
+    email: Joi.string()
       .email()
       .required(),
     password: Joi.string()
@@ -44,9 +44,7 @@ const validateUser = user => {
       .max(50)
       .required(),
     avatar: Joi.string(),
-    date: Joi.number()
-      .integer()
-      .required()
+    date: Joi.number().integer()
   };
   return Joi.validate(user, schema);
 };

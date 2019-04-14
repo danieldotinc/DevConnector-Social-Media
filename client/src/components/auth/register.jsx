@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { registerUser } from "../../state/actions/authActions";
 import * as userService from "../../services/userService";
 import auth from "../../services/authService";
 
@@ -113,4 +115,7 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default connect(
+  null,
+  { registerUser }
+)(Register);

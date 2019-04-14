@@ -10,10 +10,15 @@ export async function login(user) {
   localStorage.setItem(keyToken, jwt);
 }
 
+export function loginWithJwt(jwt) {
+  localStorage.setItem(keyToken, jwt);
+}
+
 export function getJwt() {
   return localStorage.getItem(keyToken);
 }
 
 export default {
-  login
+  login,
+  loginWithJwt
 };

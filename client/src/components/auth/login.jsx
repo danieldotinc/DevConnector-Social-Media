@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { toast } from "react-toastify";
 import auth from "../../services/authService";
 
 class Login extends Component {
@@ -25,7 +24,7 @@ class Login extends Component {
       window.location = state ? state.from.pathname : "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400)
-        toast.info("نام کاربری یا رمز عبور اشتباه است.");
+        console.log(ex.response.data);
     }
   };
 

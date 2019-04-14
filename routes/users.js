@@ -1,4 +1,5 @@
 const express = require("express");
+const _ = require("lodash");
 const { User, validate } = require("../models/user");
 const gravatar = require("gravatar");
 const bcrypt = require("bcrypt");
@@ -12,7 +13,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const check = await User.findOne({ email: req.body.email });
-  if (check) return res.status(400).send("This email is already taken!");
+  if (check)
+    return res.status(400).send({ email: "This email is already taken!" });
 
   const avatar = gravatar.url(req.body.email, {
     s: "200", //size
@@ -20,8 +22,17 @@ router.post("/", async (req, res) => {
     d: "mm" //Default
   });
 
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (req.body.password != req.body.password2)
+    return res.status(400).send({
+      password: "Passwords don't match!",
+      password2: "Passwords don't match!"
+    });
+
+  const { error } = validate(_.pick(req.body, ["name", "email", "password"]));
+  if (error)
+    return res
+      .status(400)
+      .send({ [error.details[0].path[0]]: error.details[0].message });
 
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(req.body.password, salt);
@@ -33,8 +44,13 @@ router.post("/", async (req, res) => {
     avatar
   });
 
+  const token = user.generateAuthToken();
+
   await user.save();
-  res.send(user);
+  res
+    .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
+    .send(_.pick(user, ["name", "email", "avatar"]));
 });
 
 router.delete("/:id", async (req, res) => {

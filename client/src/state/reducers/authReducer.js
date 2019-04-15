@@ -1,4 +1,9 @@
-import { REGISTER_USER, SET_CURRENT_USER } from "../actions/types";
+import {
+  GET_CURRENT_USER,
+  REGISTER_USER,
+  GET_ERRORS,
+  SET_CURRENT_USER
+} from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,

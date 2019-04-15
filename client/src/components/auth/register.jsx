@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { registerUser } from "../../state/actions/authActions";
-import * as userService from "../../services/userService";
 import auth from "../../services/authService";
 
 class Register extends Component {
@@ -15,6 +14,18 @@ class Register extends Component {
     errors: {}
   };
 
+  componentDidMount() {
+    if (auth.getCurrentUser())
+      window.location = this.props.location.state
+        ? this.props.location.state.from.pathname
+        : "/";
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { errors } = nextProps;
+    if (errors) this.setState({ errors });
+  }
+
   handleChange = e => {
     const data = { ...this.state.data };
     data[e.target.name] = e.target.value;
@@ -23,26 +34,12 @@ class Register extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    try {
-      const response = await userService.register(this.state.data);
-      auth.loginWithJwt(response.headers["x-auth-token"]);
-      const { state } = this.props.location;
-      window.location = state ? state.from.pathname : "/";
-    } catch (ex) {
-      if (ex.response && ex.response.status === 400)
-        this.setState({ errors: ex.response.data });
-      console.log(this.state.errors);
-    }
+    this.props.registerUser(this.state.data, this.props.location);
   };
 
   render() {
     const { name, email, password, password2 } = this.state.data;
-    const {
-      name: error_name,
-      email: error_email,
-      password: error_password,
-      password2: error_password2
-    } = this.state.errors;
+    const { errors } = this.state;
     return (
       <div className="register">
         <div className="container">
@@ -56,26 +53,26 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className={`form-control form-control-lg ${error_name &&
+                    className={`form-control form-control-lg ${errors.name &&
                       "is-invalid"}`}
                     placeholder="Name"
                     name="name"
                     value={name}
                     onChange={this.handleChange}
                   />
-                  <div className="invalid-feedback">{error_name}</div>
+                  <div className="invalid-feedback">{errors.name}</div>
                 </div>
                 <div className="form-group">
                   <input
                     type="email"
-                    className={`form-control form-control-lg ${error_email &&
+                    className={`form-control form-control-lg ${errors.email &&
                       "is-invalid"}`}
                     placeholder="Email Address"
                     name="email"
                     value={email}
                     onChange={this.handleChange}
                   />
-                  <div className="invalid-feedback">{error_email}</div>
+                  <div className="invalid-feedback">{errors.email}</div>
                   <small className="form-text text-muted">
                     This site uses Gravatar so if you want a profile image, use
                     a Gravatar email
@@ -84,26 +81,26 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control form-control-lg ${error_password &&
+                    className={`form-control form-control-lg ${errors.password &&
                       "is-invalid"}`}
                     placeholder="Password"
                     name="password"
                     value={password}
                     onChange={this.handleChange}
                   />
-                  <div className="invalid-feedback">{error_password}</div>
+                  <div className="invalid-feedback">{errors.password}</div>
                 </div>
                 <div className="form-group">
                   <input
                     type="password"
-                    className={`form-control form-control-lg ${error_password2 &&
+                    className={`form-control form-control-lg ${errors.password2 &&
                       "is-invalid"}`}
                     placeholder="Confirm Password"
                     name="password2"
                     value={password2}
                     onChange={this.handleChange}
                   />
-                  <div className="invalid-feedback">{error_password2}</div>
+                  <div className="invalid-feedback">{errors.password2}</div>
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
@@ -115,7 +112,11 @@ class Register extends Component {
   }
 }
 
+const mapPropsToState = state => ({
+  errors: state.error.errors
+});
+
 export default connect(
-  null,
+  mapPropsToState,
   { registerUser }
 )(Register);

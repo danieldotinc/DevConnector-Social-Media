@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import auth from "../../services/authService";
 
 class Navbar extends Component {
   state = {};
   render() {
+    const user = auth.getCurrentUser();
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
         <div className="container">
@@ -29,18 +31,43 @@ class Navbar extends Component {
               </li>
             </ul>
 
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/Register">
-                  Sign Up
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/Login">
-                  Login
-                </NavLink>
-              </li>
-            </ul>
+            {!user && (
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/Register">
+                    Sign Up
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/Login">
+                    Login
+                  </NavLink>
+                </li>
+              </ul>
+            )}
+
+            {user && (
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/Profile">
+                    <img
+                      src={user.avatar}
+                      style={{
+                        width: "25px",
+                        marginRight: "10px",
+                        borderRadius: "7px"
+                      }}
+                    />
+                    {user.name}
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/Logout">
+                    Logout
+                  </NavLink>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </nav>

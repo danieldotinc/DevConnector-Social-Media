@@ -50,10 +50,18 @@ router.get("/handle/:handle", async (req, res) => {
 });
 
 router.post("/", auth, async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  const request = { ...req.body, user: req.user._id };
 
-  let profile = new Profile(req.body);
+  request.skills = request.skills.split(",");
+
+  const { error } = validate(request);
+  if (error) {
+    const errorObj = {};
+    error.details.map(e => (errorObj[e.path[0]] = e.message));
+    return res.status(400).send(errorObj);
+  }
+
+  let profile = new Profile(request);
   await profile.save();
 
   res.send(profile);
@@ -61,7 +69,10 @@ router.post("/", auth, async (req, res) => {
 
 router.put("/experience", auth, async (req, res) => {
   const { error } = validateExperience(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error)
+    return res
+      .status(400)
+      .send({ [error.details[0].path[0]]: error.details[0].message });
 
   const profile = await Profile.findOne({ user: req.user._id });
   if (!profile) return res.status(404).send("No profile found by this id!");
@@ -75,7 +86,10 @@ router.put("/experience", auth, async (req, res) => {
 
 router.put("/education", auth, async (req, res) => {
   const { error } = validateEducation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error)
+    return res
+      .status(400)
+      .send({ [error.details[0].path[0]]: error.details[0].message });
 
   const profile = await Profile.findOne({ user: req.user._id });
   if (!profile) return res.status(404).send("No profile found by this id!");
@@ -120,7 +134,10 @@ router.delete("/", auth, async (req, res) => {
 
 router.put("/:id", auth, async (req, res) => {
   const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error)
+    return res
+      .status(400)
+      .send({ [error.details[0].path[0]]: error.details[0].message });
 
   const profile = await Profile.findByIdAndUpdate(
     { _id: req.params.id },

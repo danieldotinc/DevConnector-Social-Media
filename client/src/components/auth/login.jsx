@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { loginUser } from "../../state/actions/authActions";
 import { connect } from "react-redux";
 import auth from "../../services/authService";
+import Form from "../form/form";
 
-class Login extends Component {
+class Login extends Form {
   state = {
     data: {
       email: "",
@@ -24,19 +25,12 @@ class Login extends Component {
     if (errors) this.setState({ errors });
   }
 
-  handleChange = e => {
-    const data = { ...this.state.data };
-    data[e.target.name] = e.target.value;
-    this.setState({ data });
-  };
-
   handleSubmit = async e => {
     e.preventDefault();
     this.props.loginUser(this.state.data, this.props.location);
   };
 
   render() {
-    const { email, password } = this.state.data;
     const { errors } = this.state;
     return (
       <div className="login">
@@ -48,30 +42,22 @@ class Login extends Component {
                 Sign in to your DevConnector account
               </p>
               <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className={`form-control form-control-lg ${errors.email &&
-                      "is-invalid"}`}
-                    placeholder="Email Address"
-                    name="email"
-                    value={email}
-                    onChange={this.handleChange}
-                  />
-                  <div className="invalid-feedback">{errors.email}</div>
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={`form-control form-control-lg ${errors.password &&
-                      "is-invalid"}`}
-                    placeholder="Password"
-                    name="password"
-                    value={password}
-                    onChange={this.handleChange}
-                  />
-                  <div className="invalid-feedback">{errors.password}</div>
-                </div>
+                {this.renderInput(
+                  "email",
+                  "Email",
+                  errors.email,
+                  "",
+                  "12",
+                  "email"
+                )}
+                {this.renderInput(
+                  "password",
+                  "Password",
+                  errors.password,
+                  "",
+                  "12",
+                  "password"
+                )}
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>

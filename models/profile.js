@@ -136,7 +136,7 @@ const validateProfile = profile => {
     },
     date: Joi.date()
   };
-  return Joi.validate(profile, schema);
+  return Joi.validate(profile, schema, { abortEarly: false });
 };
 
 const validateExperience = experience => {

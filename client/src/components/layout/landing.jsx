@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import auth from "../../services/authService";
 
 class Landing extends Component {
   state = {};
   render() {
+    const user = auth.getCurrentUser();
+    if (user) this.props.history.push("/Dashboard");
     return (
       <div className="landing">
         <div className="dark-overlay landing-inner text-light">

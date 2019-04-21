@@ -5,6 +5,7 @@ export const SET_CURRENT_USER = "SET_CURRENT_USER";
 
 export const GET_PROFILES = "GET_PROFILES";
 export const GET_PROFILE = "GET_PROFILE";
+export const GET_GITHUB_REPOS = "GET_GITHUB_REPOS";
 export const ADD_PROFILE = "ADD_PROFILE";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const PROFILE_LOADING = "PROFILE_LOADING";

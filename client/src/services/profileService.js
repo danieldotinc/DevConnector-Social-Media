@@ -6,6 +6,17 @@ export function getProfile() {
   return http.get(apiEndPiont);
 }
 
+export function getProfiles() {
+  return http.get(`${apiEndPiont}/all`);
+}
+
+export function getGithubRepositories(data) {
+  const { clientId, clientSecret, count, sort, username } = data;
+  return http.get(
+    `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
+  );
+}
+
 export function getProfileByHandle(handle) {
   return http.get(`${apiEndPiont}/handle/${handle}`);
 }

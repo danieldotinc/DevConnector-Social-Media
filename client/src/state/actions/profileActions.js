@@ -6,15 +6,19 @@ import {
   deleteExperience,
   deleteEducation,
   editProfile,
+  getProfiles,
   getProfileByHandle,
+  getGithubRepositories,
   deleteAccount
 } from "../../services/profileService";
 import {
   GET_PROFILE,
+  GET_GITHUB_REPOS,
   PROFILE_LOADING,
   ADD_PROFILE,
   GET_ERRORS,
-  EDIT_PROFILE
+  EDIT_PROFILE,
+  GET_PROFILES
 } from "./types";
 
 export const getProfileItem = () => async dispatch => {
@@ -28,6 +32,37 @@ export const getProfileItem = () => async dispatch => {
   } catch (ex) {
     dispatch({
       type: GET_PROFILE,
+      payload: {}
+    });
+  }
+};
+
+export const getGithubRepos = data => async dispatch => {
+  try {
+    const { data: repos } = await getGithubRepositories(data);
+    dispatch({
+      type: GET_GITHUB_REPOS,
+      payload: repos
+    });
+  } catch (ex) {
+    dispatch({
+      type: GET_GITHUB_REPOS,
+      payload: []
+    });
+  }
+};
+
+export const getProfileList = () => async dispatch => {
+  try {
+    dispatch(setProfileLoading());
+    const { data: profiles } = await getProfiles();
+    dispatch({
+      type: GET_PROFILES,
+      payload: profiles
+    });
+  } catch (ex) {
+    dispatch({
+      type: GET_PROFILES,
       payload: {}
     });
   }

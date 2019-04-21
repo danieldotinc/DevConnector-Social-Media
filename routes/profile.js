@@ -142,6 +142,7 @@ router.delete("/", auth, async (req, res) => {
 router.put("/:id", auth, async (req, res) => {
   const request = { ...req.body, user: req.user._id };
   delete request._id;
+  request.skills = request.skills.split(",");
 
   const { error } = validate(request);
   if (error) {

@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import Navbar from "./components/layout/navbar";
 import Landing from "./components/layout/landing";
 import Dashboard from "./components/dashboard/dashboard";
+import Profile from "./components/profile/profile";
+import Profiles from "./components/profile/profiles";
 import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 import Logout from "./components/auth/logout";
@@ -15,6 +17,7 @@ import CreateProfile from "./components/profile/createProfile";
 import EditProfile from "./components/profile/editProfile";
 import AddExperience from "./components/profile/addExperience";
 import AddEducation from "./components/profile/addEducation";
+import NotFound from "./components/profile/notFound";
 
 class App extends Component {
   render() {
@@ -23,11 +26,14 @@ class App extends Component {
         <Router>
           <Navbar />
           <Switch>
+            <Route exact path="/Not-Found" component={NotFound} />
             <ProtectedRoute path="/Dashboard" component={Dashboard} />
             <ProtectedRoute path="/Create-Profile" component={CreateProfile} />
             <ProtectedRoute path="/Edit-Profile" component={EditProfile} />
             <ProtectedRoute path="/Add-Experience" component={AddExperience} />
             <ProtectedRoute path="/Add-Education" component={AddEducation} />
+            <Route path="/Profile/:handle" component={Profile} />
+            <Route path="/Profiles" component={Profiles} />
             <Route path="/Register" component={Register} />
             <Route path="/Login" component={Login} />
             <Route path="/Logout" component={Logout} />

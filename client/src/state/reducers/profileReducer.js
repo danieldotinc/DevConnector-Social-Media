@@ -3,12 +3,15 @@ import {
   PROFILE_LOADING,
   ADD_PROFILE,
   ADD_EXPERIENCE,
-  EDIT_PROFILE
+  GET_GITHUB_REPOS,
+  EDIT_PROFILE,
+  GET_PROFILES
 } from "../actions/types";
 
 const initialState = {
   profile: null,
   profiles: null,
+  repos: null,
   loading: false
 };
 
@@ -28,6 +31,17 @@ export default function(state = initialState, action) {
       return {
         ...state,
         profile: action.payload,
+        loading: false
+      };
+    case GET_GITHUB_REPOS:
+      return {
+        ...state,
+        repos: action.payload
+      };
+    case GET_PROFILES:
+      return {
+        ...state,
+        profiles: action.payload,
         loading: false
       };
     case PROFILE_LOADING:

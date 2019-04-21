@@ -68,12 +68,15 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.put("/experience", auth, async (req, res) => {
-  const { error } = validateExperience(req.body);
-  if (error)
-    return res
-      .status(400)
-      .send({ [error.details[0].path[0]]: error.details[0].message });
+  const request = { ...req.body };
+  delete request._id;
 
+  const { error } = validateExperience(request);
+  if (error) {
+    const errorObj = {};
+    error.details.map(e => (errorObj[e.path[0]] = e.message));
+    return res.status(400).send(errorObj);
+  }
   const profile = await Profile.findOne({ user: req.user._id });
   if (!profile) return res.status(404).send("No profile found by this id!");
 
@@ -85,11 +88,15 @@ router.put("/experience", auth, async (req, res) => {
 });
 
 router.put("/education", auth, async (req, res) => {
-  const { error } = validateEducation(req.body);
-  if (error)
-    return res
-      .status(400)
-      .send({ [error.details[0].path[0]]: error.details[0].message });
+  const request = { ...req.body };
+  delete request._id;
+
+  const { error } = validateEducation(request);
+  if (error) {
+    const errorObj = {};
+    error.details.map(e => (errorObj[e.path[0]] = e.message));
+    return res.status(400).send(errorObj);
+  }
 
   const profile = await Profile.findOne({ user: req.user._id });
   if (!profile) return res.status(404).send("No profile found by this id!");
@@ -110,7 +117,7 @@ router.delete("/education/:id", auth, async (req, res) => {
   profile.education.splice(profile.education.indexOf(item), 1);
 
   await profile.save();
-  res.send(profile.education);
+  res.send(profile);
 });
 
 router.delete("/experience/:id", auth, async (req, res) => {
@@ -122,7 +129,7 @@ router.delete("/experience/:id", auth, async (req, res) => {
   profile.experience.splice(profile.experience.indexOf(item), 1);
 
   await profile.save();
-  res.send(profile.experience);
+  res.send(profile);
 });
 
 router.delete("/", auth, async (req, res) => {
@@ -133,15 +140,19 @@ router.delete("/", auth, async (req, res) => {
 });
 
 router.put("/:id", auth, async (req, res) => {
-  const { error } = validate(req.body);
-  if (error)
-    return res
-      .status(400)
-      .send({ [error.details[0].path[0]]: error.details[0].message });
+  const request = { ...req.body, user: req.user._id };
+  delete request._id;
+
+  const { error } = validate(request);
+  if (error) {
+    const errorObj = {};
+    error.details.map(e => (errorObj[e.path[0]] = e.message));
+    return res.status(400).send(errorObj);
+  }
 
   const profile = await Profile.findByIdAndUpdate(
     { _id: req.params.id },
-    req.body,
+    request,
     { new: true }
   );
   if (!profile) return res.status(404).send("No profile found by this id!");

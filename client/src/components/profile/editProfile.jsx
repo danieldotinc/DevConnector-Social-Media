@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { createProfileItem } from "../../state/actions/profileActions";
+import {
+  editProfileItem,
+  getProfileItem
+} from "../../state/actions/profileActions";
 import PropTypes from "prop-types";
+import { BeatLoader } from "react-spinners";
 import Form from "../form/form";
 
-class CreateProfile extends Form {
+class EditProfile extends Form {
   state = {
     displaySocialInputs: false,
     data: {
+      _id: "",
       handle: "",
       company: "",
       website: "",
@@ -26,15 +31,28 @@ class CreateProfile extends Form {
     errors: {}
   };
 
+  componentDidMount() {
+    this.props.getProfileItem();
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { errors } = nextProps;
+    const { errors, profile: data, loading } = nextProps;
     if (errors) this.setState({ errors });
+    if (data || !loading) {
+      data.youtube = data.social.youtube;
+      data.facebook = data.social.facebook;
+      data.instagram = data.social.instagram;
+      data.linkedin = data.social.linkedin;
+      data.twitter = data.social.twitter;
+      this.setState({ data });
+    }
   }
 
   handleSubmit = e => {
     e.preventDefault();
     const { data } = this.state;
     const profile = {
+      _id: data._id,
       handle: data.handle,
       status: data.status,
       company: data.company,
@@ -60,12 +78,18 @@ class CreateProfile extends Form {
         });
     });
 
-    this.props.createProfileItem(profile, this.props.history);
+    this.props.editProfileItem(profile, this.props.history);
   };
 
   render() {
-    const { errors } = this.state;
-    const { displaySocialInputs } = this.state;
+    const { errors, displaySocialInputs } = this.state;
+    const { profile, loading } = this.props;
+    if (loading || !profile)
+      return (
+        <div className="centered">
+          <BeatLoader sizeUnit={"px"} size={20} color={"#696969"} />
+        </div>
+      );
     const statusOptions = [
       { label: "* Select Professional Status", value: 0 },
       { label: "Developer", value: "Developer" },
@@ -86,10 +110,7 @@ class CreateProfile extends Form {
               <Link to="/Dashboard" className="btn btn-light">
                 Go Back
               </Link>
-              <h1 className="display-4 text-center">Create Your Profile</h1>
-              <p className="lead text-center">
-                Let's get some information to make your profile stand out.
-              </p>
+              <h1 className="display-4 text-center">Edit Profile</h1>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.handleSubmit}>
                 {this.renderInput(
@@ -192,18 +213,21 @@ class CreateProfile extends Form {
   }
 }
 
-CreateProfile.propTypes = {
-  createProfileItem: PropTypes.func.isRequired,
+EditProfile.propTypes = {
+  getProfileItem: PropTypes.func.isRequired,
+  editProfileItem: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
+  loading: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile.profile,
+  loading: state.profile.loading,
   errors: state.error.errors
 });
 
 export default connect(
   mapStateToProps,
-  { createProfileItem }
-)(CreateProfile);
+  { getProfileItem, editProfileItem }
+)(EditProfile);

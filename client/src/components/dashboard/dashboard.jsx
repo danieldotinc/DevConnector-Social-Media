@@ -1,15 +1,26 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getProfileItem } from "../../state/actions/profileActions";
+import {
+  getProfileItem,
+  deleteUserAccount
+} from "../../state/actions/profileActions";
 import { BeatLoader } from "react-spinners";
+import ProfileActions from "./profileActions";
 import auth from "../../services/authService";
 import PropTypes from "prop-types";
+import Experience from "./experience";
+import Education from "./education";
 
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getProfileItem();
   }
+
+  handleDeleteAccount = () => {
+    this.props.deleteUserAccount();
+    window.location = "/Logout";
+  };
 
   render() {
     const { profile, loading } = this.props;
@@ -32,32 +43,18 @@ class Dashboard extends Component {
       );
     return (
       <div className="container">
-        <h1>Dashboard of {user.name}</h1>
-        <div className="list-group m-3">
-          Experiences
-          {profile.experience.map(e => (
-            <div className="list-group-item m-2">
-              <p>
-                <span style={{ fontWeight: "600", fontSize: "16px" }}>
-                  Title:
-                </span>{" "}
-                {e.title}
-              </p>
-              <p>
-                <span style={{ fontWeight: "600", fontSize: "16px" }}>
-                  Company:
-                </span>{" "}
-                {e.company}
-              </p>
-              <p>
-                <span style={{ fontWeight: "600", fontSize: "16px" }}>
-                  Location:
-                </span>{" "}
-                {e.location}
-              </p>
-            </div>
-          ))}
+        <p>
+          Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+        </p>
+        <ProfileActions />
+        <Experience experience={profile.experience} />
+        <Education education={profile.education} />
+        <div style={{ marginBottom: "60px" }}>
+          <button className="btn btn-danger" onClick={this.handleDeleteAccount}>
+            Delete My Account
+          </button>
         </div>
+        <div className="list-group m-3" />
       </div>
     );
   }
@@ -70,11 +67,12 @@ const mapStateToProps = state => ({
 
 Dashboard.propTypes = {
   getProfileItem: PropTypes.func.isRequired,
+  deleteUserAccount: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired
 };
 
 export default connect(
   mapStateToProps,
-  { getProfileItem }
+  { getProfileItem, deleteUserAccount }
 )(Dashboard);

@@ -4,6 +4,8 @@ import Input from "./input";
 import Submit from "./submit";
 import InputGroup from "./inputGroup";
 import Textarea from "./textarea";
+import Check from "./check";
+import Switch from "./switch";
 
 class Form extends Component {
   state = {
@@ -13,7 +15,8 @@ class Form extends Component {
 
   handleChange = e => {
     const data = { ...this.state.data };
-    data[e.target.name] = e.target.value;
+    if (e.target.type == "checkbox") data[e.target.value] = e.target.checked;
+    else data[e.target.name] = e.target.value;
     this.setState({ data });
   };
 
@@ -94,6 +97,7 @@ class Form extends Component {
     name,
     placeholder = "...",
     error = "",
+    info = "",
     size = "12",
     onChange = this.handleChange
   ) => {
@@ -101,6 +105,7 @@ class Form extends Component {
     return (
       <Textarea
         error={error}
+        info={info}
         size={size}
         name={name}
         value={data[name]}
@@ -128,6 +133,32 @@ class Form extends Component {
         options={options}
         value={data[name]}
         onChange={onChange}
+      />
+    );
+  };
+
+  renderCheck = (name, label, size = "12") => {
+    const { data } = this.state;
+    return (
+      <Check
+        name={name}
+        label={label}
+        size={size}
+        value={data[name]}
+        onChange={this.handleChange}
+      />
+    );
+  };
+
+  renderSwitch = (name, label, size = "12") => {
+    const { data } = this.state;
+    return (
+      <Switch
+        name={name}
+        label={label}
+        size={size}
+        value={data[name]}
+        onChange={this.handleChange}
       />
     );
   };

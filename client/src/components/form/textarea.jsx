@@ -1,6 +1,6 @@
 import React from "react";
 
-const Textarea = ({ error, size, onChange, ...rest }) => {
+const Textarea = ({ error, size, info, onChange, ...rest }) => {
   return (
     <div className={`form-group col-${size}`}>
       <textarea
@@ -10,6 +10,7 @@ const Textarea = ({ error, size, onChange, ...rest }) => {
         onInvalid={onChange}
         onInput={onChange}
       />
+      {info && <small className="form-text text-muted">{info}</small>}
       <div className="invalid-feedback">{error}</div>
     </div>
   );

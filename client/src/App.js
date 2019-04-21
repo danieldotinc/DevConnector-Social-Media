@@ -12,6 +12,9 @@ import Footer from "./components/layout/footer";
 import store from "./state/store";
 import "./App.css";
 import CreateProfile from "./components/profile/createProfile";
+import EditProfile from "./components/profile/editProfile";
+import AddExperience from "./components/profile/addExperience";
+import AddEducation from "./components/profile/addEducation";
 
 class App extends Component {
   render() {
@@ -22,6 +25,9 @@ class App extends Component {
           <Switch>
             <ProtectedRoute path="/Dashboard" component={Dashboard} />
             <ProtectedRoute path="/Create-Profile" component={CreateProfile} />
+            <ProtectedRoute path="/Edit-Profile" component={EditProfile} />
+            <ProtectedRoute path="/Add-Experience" component={AddExperience} />
+            <ProtectedRoute path="/Add-Education" component={AddEducation} />
             <Route path="/Register" component={Register} />
             <Route path="/Login" component={Login} />
             <Route path="/Logout" component={Logout} />

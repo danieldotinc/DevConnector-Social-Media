@@ -149,7 +149,7 @@ const validateExperience = experience => {
     current: Joi.boolean(),
     description: Joi.string()
   };
-  return Joi.validate(experience, schema);
+  return Joi.validate(experience, schema, { abortEarly: false });
 };
 
 const validateEducation = experience => {
@@ -162,7 +162,7 @@ const validateEducation = experience => {
     current: Joi.boolean(),
     description: Joi.string()
   };
-  return Joi.validate(experience, schema);
+  return Joi.validate(experience, schema, { abortEarly: false });
 };
 
 module.exports.Profile = Profile;

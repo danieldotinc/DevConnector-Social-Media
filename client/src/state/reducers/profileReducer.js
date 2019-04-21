@@ -1,4 +1,10 @@
-import { GET_PROFILE, PROFILE_LOADING, ADD_PROFILE } from "../actions/types";
+import {
+  GET_PROFILE,
+  PROFILE_LOADING,
+  ADD_PROFILE,
+  ADD_EXPERIENCE,
+  EDIT_PROFILE
+} from "../actions/types";
 
 const initialState = {
   profile: null,
@@ -9,6 +15,11 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_PROFILE:
+      return {
+        ...state,
+        profile: action.payload
+      };
+    case EDIT_PROFILE:
       return {
         ...state,
         profile: action.payload

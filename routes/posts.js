@@ -46,10 +46,18 @@ router.post("/comment/:id", auth, async (req, res) => {
 });
 
 router.post("/", auth, async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  const postObj = {
+    user: req.user._id,
+    ...req.body,
+    name: req.user.name,
+    avatar: req.user.avatar
+  };
 
-  const postObj = { ...req.body, name: req.user.name, avatar: req.user.avatar };
+  const { error } = validate(postObj);
+  if (error)
+    return res
+      .status(400)
+      .send({ [error.details[0].path[0]]: error.details[0].message });
 
   const post = new Post(postObj);
   await post.save();

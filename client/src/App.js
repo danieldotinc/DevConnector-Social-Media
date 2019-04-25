@@ -18,6 +18,7 @@ import EditProfile from "./components/profile/editProfile";
 import AddExperience from "./components/profile/addExperience";
 import AddEducation from "./components/profile/addEducation";
 import NotFound from "./components/profile/notFound";
+import Posts from "./components/posts/posts";
 
 class App extends Component {
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/Not-Found" component={NotFound} />
             <ProtectedRoute path="/Dashboard" component={Dashboard} />
+            <ProtectedRoute path="/Feed" component={Posts} />
             <ProtectedRoute path="/Create-Profile" component={CreateProfile} />
             <ProtectedRoute path="/Edit-Profile" component={EditProfile} />
             <ProtectedRoute path="/Add-Experience" component={AddExperience} />

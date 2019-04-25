@@ -49,6 +49,11 @@ class Navbar extends Component {
             {user && (
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
+                  <NavLink className="nav-link" to="/Feed">
+                    Post Feed
+                  </NavLink>
+                </li>
+                <li className="nav-item">
                   <NavLink className="nav-link" to="/Dashboard">
                     Dashboard
                   </NavLink>

@@ -49,6 +49,8 @@ const validatePost = post => {
   const schema = {
     user: Joi.objectId().required(),
     text: Joi.string().required(),
+    name: Joi.string().required(),
+    avatar: Joi.string(),
     comments: Joi.array().items(
       Joi.object({
         user: Joi.objectId().required(),

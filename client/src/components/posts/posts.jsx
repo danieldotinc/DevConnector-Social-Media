@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { BeatLoader } from "react-spinners";
 import { getPostItems } from "../../state/actions/postActions";
 import PostForm from "./postForm";
+import PostFeed from "./postFeed";
 
 class Posts extends Component {
   state = {};
+
+  componentDidMount() {
+    this.props.getPostItems();
+  }
+
   render() {
     const { loading, posts } = this.props;
     if (loading || !posts)
@@ -20,6 +27,7 @@ class Posts extends Component {
           <div className="row">
             <div className="col-md-12">
               <PostForm />
+              <PostFeed posts={posts} />
             </div>
           </div>
         </div>
@@ -27,6 +35,11 @@ class Posts extends Component {
     );
   }
 }
+
+Posts.propTypes = {
+  getPostItems: PropTypes.func.isRequired,
+  posts: PropTypes.array.isRequired
+};
 
 const mapStateToProps = state => ({
   posts: state.post.posts,

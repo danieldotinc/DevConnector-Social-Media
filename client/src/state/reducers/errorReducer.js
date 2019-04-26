@@ -1,4 +1,4 @@
-import { GET_ERRORS } from "../actions/types";
+import { GET_ERRORS, CLEAR_ERRORS } from "../actions/types";
 
 const initialState = {
   errors: {}
@@ -9,6 +9,10 @@ export default function(state = initialState, action) {
     case GET_ERRORS:
       return {
         errors: action.payload
+      };
+    case CLEAR_ERRORS:
+      return {
+        errors: {}
       };
     default:
       return state;

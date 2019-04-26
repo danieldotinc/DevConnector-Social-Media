@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import auth from "../../services/authService";
 import PropTypes from "prop-types";
-import { addPostItem } from "../../state/actions/postActions";
+import { addCommentItem } from "../../state/actions/postActions";
 import Form from "../form/form";
 
-class PostForm extends Form {
+class CommentForm extends Form {
   state = {
     data: {
       text: ""
@@ -21,13 +21,14 @@ class PostForm extends Form {
   handleSubmit = e => {
     e.preventDefault();
     const user = auth.getCurrentUser();
-    const post = {
+    const { postId } = this.props;
+    const comment = {
       user: user._id,
       text: this.state.data.text,
       name: user.name,
       avatar: user.avatar
     };
-    this.props.addPostItem(post);
+    this.props.addCommentItem(postId, comment);
     this.setState({ data: { text: "" }, errors: {} });
   };
 
@@ -36,10 +37,12 @@ class PostForm extends Form {
     return (
       <div className="post-form mb-3">
         <div className="card card-info">
-          <div className="card-header bg-info text-white">Say Somthing...</div>
+          <div className="card-header bg-info text-white">
+            Make a comment...
+          </div>
           <div className="card-body">
             <form onSubmit={this.handleSubmit}>
-              {this.renderTextarea("text", "Create a Post", errors.text)}
+              {this.renderTextarea("text", "Reply to post", errors.text)}
               <button type="submit" className="btn btn-dark">
                 Submit
               </button>
@@ -51,8 +54,9 @@ class PostForm extends Form {
   }
 }
 
-PostForm.propTypes = {
-  addPostItem: PropTypes.func.isRequired,
+CommentForm.propTypes = {
+  addCommentItem: PropTypes.func.isRequired,
+  postId: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired
 };
 
@@ -62,5 +66,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addPostItem }
-)(PostForm);
+  { addCommentItem }
+)(CommentForm);

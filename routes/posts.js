@@ -31,35 +31,29 @@ router.post("/like/:id", auth, async (req, res) => {
 });
 
 router.post("/comment/:id", auth, async (req, res) => {
-  const user = req.user._id;
   const post = await Post.findById(req.params.id);
   if (!post) return res.status(404).send("This post is deleted!");
 
-  const comment = { ...req.body, user };
-  const { error } = validateComment(comment);
-  if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validateComment(req.body);
+  if (error)
+    return res
+      .status(400)
+      .send({ [error.details[0].path[0]]: error.details[0].message });
 
-  post.comments.push(comment);
+  post.comments.push(req.body);
 
   await post.save();
   res.send(post);
 });
 
 router.post("/", auth, async (req, res) => {
-  const postObj = {
-    user: req.user._id,
-    ...req.body,
-    name: req.user.name,
-    avatar: req.user.avatar
-  };
-
-  const { error } = validate(postObj);
+  const { error } = validate(req.body);
   if (error)
     return res
       .status(400)
       .send({ [error.details[0].path[0]]: error.details[0].message });
 
-  const post = new Post(postObj);
+  const post = new Post(req.body);
   await post.save();
 
   res.send(post);

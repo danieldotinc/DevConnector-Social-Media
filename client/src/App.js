@@ -19,6 +19,7 @@ import AddExperience from "./components/profile/addExperience";
 import AddEducation from "./components/profile/addEducation";
 import NotFound from "./components/profile/notFound";
 import Posts from "./components/posts/posts";
+import Post from "./components/posts/post";
 
 class App extends Component {
   render() {
@@ -30,6 +31,7 @@ class App extends Component {
             <Route exact path="/Not-Found" component={NotFound} />
             <ProtectedRoute path="/Dashboard" component={Dashboard} />
             <ProtectedRoute path="/Feed" component={Posts} />
+            <ProtectedRoute path="/Post/:id" component={Post} />
             <ProtectedRoute path="/Create-Profile" component={CreateProfile} />
             <ProtectedRoute path="/Edit-Profile" component={EditProfile} />
             <ProtectedRoute path="/Add-Experience" component={AddExperience} />

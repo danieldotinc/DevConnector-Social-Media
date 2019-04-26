@@ -2,12 +2,12 @@ import http from "./httpService";
 
 const apiEndPiont = "/posts";
 
-export function getPost() {
-  return http.get(apiEndPiont);
+export function getPost(id) {
+  return http.get(`${apiEndPiont}/${id}`);
 }
 
 export function getPosts() {
-  return http.get(`${apiEndPiont}/all`);
+  return http.get(apiEndPiont);
 }
 
 export function addPost(post) {
@@ -18,18 +18,22 @@ export function toggleLike(like) {
   return http.put(`${apiEndPiont}/like`, like);
 }
 
-export function addComment(comment) {
-  return http.put(`${apiEndPiont}/comment`, comment);
+export function addComment(postId, comment) {
+  return http.post(`${apiEndPiont}/comment/${postId}`, comment);
 }
 
 export function editPost(post) {
   return http.put(`${apiEndPiont}/${post._id}`, post);
 }
 
-export function deleteComment(id) {
-  return http.delete(`${apiEndPiont}/comment/${id}`);
+export function deleteComment(postId, commentId) {
+  return http.delete(`${apiEndPiont}/comment/${postId}/${commentId}`);
 }
 
-export function deletePost() {
-  return http.delete(apiEndPiont);
+export function deletePost(id) {
+  return http.delete(`${apiEndPiont}/${id}`);
+}
+
+export function likePost(id) {
+  return http.post(`${apiEndPiont}/like/${id}`);
 }

@@ -55,6 +55,8 @@ const validatePost = post => {
       Joi.object({
         user: Joi.objectId().required(),
         text: Joi.string().required(),
+        name: Joi.string().required(),
+        avatar: Joi.string(),
         likes: Joi.number()
       })
     ),
@@ -72,6 +74,8 @@ const validateComment = comment => {
   const schema = {
     user: Joi.objectId().required(),
     text: Joi.string().required(),
+    name: Joi.string().required(),
+    avatar: Joi.string(),
     likes: Joi.number()
   };
   return Joi.validate(comment, schema);

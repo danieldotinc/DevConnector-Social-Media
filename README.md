@@ -2,6 +2,10 @@
 
 ![](demo/devconnector.gif)
 
+## Embeded Technologies
+
+I have used Node.js & Express.js (for building RESTfull APIs), MongoDB & Mongoose (for No-Sql database & Object Relational Mapper), React.js (as main front-end library / framework), Redux.js & thunk (for State Management) Unit & Integration Testing using Jest & Supertest, HTML/CSS & Bootstrap, bcrypt & jsonwebtoken & joi (building middlewares) for server side and client side authorization and authentication, axios (for web requests in client side), winston (for logging), config (for development, production and testing configuration settings) and many more libraries.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

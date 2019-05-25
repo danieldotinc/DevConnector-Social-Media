@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "client-install": "npm i --prefix client",
+    "test": "jest --watchAll --runInBand --detectOpenHandles",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors",
     "start": "node index",
     "server": "nodemon index",
     "client": "npm start --prefix client",
@@ -33,6 +36,8 @@
     "winston": "^2.4.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "jest": "^24.8.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
   }
 }
